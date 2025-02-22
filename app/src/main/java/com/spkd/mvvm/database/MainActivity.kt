@@ -1,47 +1,32 @@
 package com.spkd.mvvm.database
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.spkd.mvvm.database.ui.theme.MVVMDatabaseTheme
+import com.spkd.mvvm.database.data.entitiy.Item
+import com.spkd.mvvm.database.ui.adapter.ItemAdapter
+import com.spkd.mvvm.database.ui.viewmodel.ItemViewModel
 
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+@dagger.hilt.android.AndroidEntryPoint
+class MainActivity : androidx.appcompat.app.AppCompatActivity() {
+    private lateinit var viewModel: ItemViewModel
+    private lateinit var adapter: ItemAdapter
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MVVMDatabaseTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        setContentView(android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            val recyclerView = androidx.recyclerview.widget.RecyclerView(context).apply {
+                layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
             }
-        }
-    }
-}
+            val button = android.widget.Button(context).apply {
+                text = "Add Item"
+                setOnClickListener { viewModel.insert(Item(name = "Item " + (1..100).random())) }
+            }
+            addView(button)
+            addView(recyclerView)
+            adapter = ItemAdapter { viewModel.delete(it) }
+            recyclerView.adapter = adapter
+        })
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MVVMDatabaseTheme {
-        Greeting("Android")
+        viewModel = androidx.lifecycle.ViewModelProvider(this)[ItemViewModel::class.java]
+        viewModel.allItems.observe(this) { adapter.submitList(it) }
     }
 }

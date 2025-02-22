@@ -84,4 +84,6 @@ dependencies {
 
     // RecyclerView
     implementation(libs.androidx.recyclerview)
+
+    implementation(libs.appcompat)
 }

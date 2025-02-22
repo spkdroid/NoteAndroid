@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.1"
+appcompatVersion = "1.7.0"
 coreKtxVersion = "1.12.0"
 hiltAndroid = "2.48"
 kotlin = "2.0.0"
@@ -29,6 +30,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
