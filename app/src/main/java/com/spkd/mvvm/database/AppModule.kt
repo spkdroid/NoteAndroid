@@ -5,10 +5,11 @@ import com.spkd.mvvm.database.data.dao.ItemDao
 import com.spkd.mvvm.database.data.database.AppDatabase
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @dagger.Module
-@dagger.hilt.InstallIn(dagger.hilt.components.SingletonComponent::class)
+@dagger.hilt.InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
     @Singleton

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             setOnClickListener {
                 val itemName = editText.text.toString()
                 if (itemName.isNotBlank()) {
-                    viewModel.insert(Item(name = itemName))
+                    viewModel.insert(Item(name = itemName, content = ""))
                     editText.text.clear()
                 }
             }
